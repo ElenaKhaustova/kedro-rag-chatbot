@@ -53,7 +53,7 @@ def create_chat_prompt(system_prompt: str) -> ChatPromptTemplate:
 def create_agent(
     llm_with_tools: Runnable, chat_prompt: ChatPromptTemplate
 ) -> RunnableSerializable:
-    agent = (
+    agent: RunnableSerializable = (
         {
             "input": lambda x: x["input"],
             "agent_scratchpad": lambda x: format_to_openai_tool_messages(
