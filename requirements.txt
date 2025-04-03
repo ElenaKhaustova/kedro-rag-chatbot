@@ -1,0 +1,12 @@
+ipython>=8.10
+jupyterlab>=3.0
+notebook
+kedro~=0.19.9
+kedro[jupyter]
+langchain>=0.3.0
+scikit-learn~=1.5.1; python_version >= "3.9"
+deeplake~=3.9.16
+openai
+langchain-openai
+kedro-datasets[partitions-partitioneddataset]>=3.0; python_version >= "3.9"
+questionary
