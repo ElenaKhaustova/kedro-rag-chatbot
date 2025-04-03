@@ -1,12 +1,12 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import (
-    user_interaction_loop,
-    create_tools,
-    init_llm,
-    create_chat_prompt,
     create_agent,
     create_agent_executor,
+    create_chat_prompt,
+    create_tools,
+    init_llm,
+    user_interaction_loop,
 )
 
 

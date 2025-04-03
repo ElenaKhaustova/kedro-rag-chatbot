@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 
 # kedro_rag_chatbot documentation build
@@ -21,6 +20,7 @@
 import re
 
 from kedro.framework.cli.utils import find_stylesheets
+
 from kedro_rag_chatbot import __version__ as release
 
 # -- Project information -----------------------------------------------------

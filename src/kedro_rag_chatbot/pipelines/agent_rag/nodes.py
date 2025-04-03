@@ -1,10 +1,9 @@
 import logging
-from typing import Callable, Any
+from typing import Any, Callable
 
 import questionary
 from deeplake.core.vectorstore import VectorStore
-from langchain.agents import AgentExecutor
-from langchain.agents import tool
+from langchain.agents import AgentExecutor, tool
 from langchain.agents.format_scratchpad.openai_tools import (
     format_to_openai_tool_messages,
 )

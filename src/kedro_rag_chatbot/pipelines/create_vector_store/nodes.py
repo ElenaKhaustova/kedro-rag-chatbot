@@ -1,10 +1,9 @@
 import logging
 from typing import Any, Callable
 
-from deeplake.core.vectorstore import VectorStore
 import numpy as np
+from deeplake.core.vectorstore import VectorStore
 from sklearn.feature_extraction.text import HashingVectorizer
-
 
 logger = logging.getLogger(__name__)
 

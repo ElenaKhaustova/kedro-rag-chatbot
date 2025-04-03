@@ -1,6 +1,6 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import format_dialogs, create_embedding_function, create_vector_store
+from .nodes import create_embedding_function, create_vector_store, format_dialogs
 
 
 def create_pipeline(**kwargs) -> Pipeline:

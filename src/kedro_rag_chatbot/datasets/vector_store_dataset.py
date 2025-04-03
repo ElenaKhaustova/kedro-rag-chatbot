@@ -1,7 +1,6 @@
 from typing import Any, NoReturn
 
 from deeplake.core.vectorstore import VectorStore
-
 from kedro.io import AbstractDataset, DatasetError
 
 
