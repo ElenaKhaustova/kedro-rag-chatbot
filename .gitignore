@@ -20,6 +20,9 @@ data/**
 # keep also the example dataset
 !data/01_raw/*
 
+# keep also the sample data
+!data/01_raw/dialogs/*
+
 
 ##########################
 # Common files
