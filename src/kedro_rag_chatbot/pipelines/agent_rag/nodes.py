@@ -165,17 +165,28 @@ def user_interaction_loop(agent_executor: AgentExecutor, llm: ChatOpenAI) -> str
         llm_response = invoke_llm(llm, user_query)
         agent_response = invoke_agent(agent_executor, user_query)
 
-        interaction_log = "\n".join(
-            [
-                f"### User Input: {user_query}",
-                f"### LLM Output:\n{llm_response}",
-                f"### Agent Output:\n{agent_response['output']}",
-                f"### Retrieved Context:\n{agent_response['intermediate_steps'][0][1]}",
-                f"### Agent Intermediate Steps:\n```json\n{agent_response['intermediate_steps']}\n```",
-            ]
+        input_res = f"### User Input: {user_query}\n"
+        llm_res = f"### LLM Output:\n{llm_response}\n"
+        agent_res = f"### Agent Output:\n{agent_response['output']}\n"
+        agent_intermediate_steps = f"### Agent Intermediate Steps:\n```json\n{agent_response['intermediate_steps']}\n```\n"
+        retrieved_context = (
+            f"### Retrieved Context:\n{agent_response['intermediate_steps'][0][1]}\n"
         )
-        res.append(interaction_log)
 
-        logger.info(interaction_log)
+        res.append(
+            "\n".join(
+                [
+                    input_res,
+                    llm_res,
+                    agent_res,
+                    retrieved_context,
+                    agent_intermediate_steps,
+                ]
+            )
+        )
+
+        logger.info(input_res)
+        logger.info(llm_res)
+        logger.info(agent_res)
 
     return "\n\n".join(res)
