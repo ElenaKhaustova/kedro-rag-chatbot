@@ -69,3 +69,54 @@ Once the chatbot is running, you can interact with it via the CLI. For each ques
 This allows you to compare the effectiveness of retrieval-augmented generation versus a general-purpose model.
 
 After exiting the loop, all questions asked, retrieved context, and generated answers are saved in `data/08_reporting/output.md`.
+
+## Output example
+
+### User Input:
+
+How can I force node execution order in the Kedro pipeline?
+
+### LLM Output:
+To force node execution order in the Kedro pipeline, you can use the `before` and `after` arguments when defining your nodes in the `pipeline.py` file. 
+
+For example, if you have two nodes `node1` and `node2`, and you want `node1` to run before `node2`, you can define them like this:
+
+```python
+from kedro.pipeline import node
+
+def create_pipeline():
+    return Pipeline(
+        [
+            node(func=node1, inputs="input_data", outputs="output_data", name="node1"),
+            node(func=node2, inputs="output_data", outputs="final_output", name="node2", before="node1")
+        ]
+    )
+```
+
+In this example, `node2` will run after `node1` because of the `before="node1"` argument. You can also use the `after` argument to specify that a node should run after another node. 
+
+By using these arguments, you can control the execution order of nodes in your Kedro pipeline.
+
+### Agent Output:
+In Kedro, the recommended approach is to rely on the topological sorting of nodes in the pipeline to determine the execution order. However, if you need to force a specific node execution order, you can create "pass-through" nodes to achieve this.
+
+Here is an example of how you can force node execution order by creating pass-through nodes:
+
+```python
+from kedro.pipeline import node
+
+def pass_through_function(input_data):
+    # Perform any necessary operations here
+    return input_data
+
+pass_through_node = node(pass_through_function, inputs="input_data", outputs="output_data")
+
+# Define your pipeline with the pass-through nodes to enforce execution order
+pipeline = Pipeline([
+    pass_through_node,
+    node(process_data, inputs="output_data", outputs="processed_data"),
+    node(analyze_data, inputs="processed_data", outputs=None)
+])
+```
+
+By inserting pass-through nodes between the nodes that need to be executed in a specific order, you can enforce the desired execution sequence in the pipeline.
