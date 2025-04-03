@@ -18,7 +18,7 @@ vector_store_load:
   path: data/02_intermediate/vector_store/
   overwrite: False
 
-gpt_3_5_turbo:
+openai_llm:
  type: kedro_datasets_experimental.langchain.ChatOpenAIDataset
  kwargs:
    model: "gpt-3.5-turbo"

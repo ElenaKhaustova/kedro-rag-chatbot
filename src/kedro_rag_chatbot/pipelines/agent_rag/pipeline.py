@@ -21,7 +21,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
             node(
                 func=init_llm,
-                inputs=["gpt_3_5_turbo", "tools"],
+                inputs=["openai_llm", "tools"],
                 outputs=["llm", "llm_with_tools"],
                 name="init_llm_node",
             ),
