@@ -5,6 +5,8 @@ The chatbot is designed to assist users with Kedro-related questions by leveragi
 
 See the demo on [YouTube](https://www.youtube.com/watch?v=rgmANk-QwYg).
 
+**Note:** this project is a toy example, designed to explain how you can use Kedro to structure and manage GenAI workflows. While not production-ready, it provides a strong foundation for more advanced implementations.
+
 ## Features
 - Extracts Q&A data from Slack conversations
 - Converts text data into embeddings and stores them in a vector database
@@ -72,11 +74,11 @@ After exiting the loop, all questions asked, retrieved context, and generated an
 
 ## Output example
 
-### User Input:
+### User Input
 
 How can I force node execution order in the Kedro pipeline?
 
-### LLM Output:
+### LLM Output ❌
 To force node execution order in the Kedro pipeline, you can use the `before` and `after` arguments when defining your nodes in the `pipeline.py` file. 
 
 For example, if you have two nodes `node1` and `node2`, and you want `node1` to run before `node2`, you can define them like this:
@@ -97,7 +99,7 @@ In this example, `node2` will run after `node1` because of the `before="node1"` 
 
 By using these arguments, you can control the execution order of nodes in your Kedro pipeline.
 
-### Agent Output:
+### Agent Output ✅
 In Kedro, the recommended approach is to rely on the topological sorting of nodes in the pipeline to determine the execution order. However, if you need to force a specific node execution order, you can create "pass-through" nodes to achieve this.
 
 Here is an example of how you can force node execution order by creating pass-through nodes:

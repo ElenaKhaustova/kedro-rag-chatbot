@@ -14,6 +14,8 @@ from langchain_openai import ChatOpenAI
 
 logger = logging.getLogger(__name__)
 
+FALLBACK_MESSAGE = "No relevant context found"
+
 
 def create_tools(
     vector_store: VectorStore, embedding_function: Callable
@@ -30,9 +32,11 @@ def create_tools(
     @tool
     def get_context_from_vector_store(user_question: str) -> str:
         """Returns the context found in vector store based on user question."""
-        return vector_store.search(
+        output = vector_store.search(
             embedding_data=user_question, embedding_function=embedding_function, k=1
-        )["text"][0]
+        )["text"]
+
+        return output[0] if output else FALLBACK_MESSAGE
 
     return [get_context_from_vector_store]
 
@@ -169,8 +173,12 @@ def user_interaction_loop(agent_executor: AgentExecutor, llm: ChatOpenAI) -> str
         llm_res = f"### LLM Output:\n{llm_response}\n"
         agent_res = f"### Agent Output:\n{agent_response['output']}\n"
         agent_intermediate_steps = f"### Agent Intermediate Steps:\n```json\n{agent_response['intermediate_steps']}\n```\n"
+        try:
+            context = agent_response['intermediate_steps'][0][1]
+        except IndexError:
+            context = FALLBACK_MESSAGE
         retrieved_context = (
-            f"### Retrieved Context:\n{agent_response['intermediate_steps'][0][1]}\n"
+            f"### Retrieved Context:\n{context}\n"
         )
 
         res.append(
